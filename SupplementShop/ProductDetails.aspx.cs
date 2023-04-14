@@ -21,11 +21,14 @@ namespace SupplementShop
         {
             var _db = new SupplementShop.Models.ProductContext();
             IQueryable<Product> query = _db.Products;
-
-            query = productId.HasValue && productId > 0
-                ? query.Where(p => p.ProductID == productId)
-                : null;
-
+            if (productId.HasValue && productId > 0)
+            {
+                query = query.Where(p => p.ProductID == productId);
+            }
+            else
+            {
+                query = null;
+            }
             return query;
         }
     }
